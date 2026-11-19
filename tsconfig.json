@@ -6,9 +6,10 @@
     "moduleResolution": "Bundler",
     "strict": true,
     "isolatedModules": true,
+    "resolveJsonModule": true,
     "verbatimModuleSyntax": true,
     "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["src", "*.config.ts", "tests"]
+  "include": ["src", "packages", "*.config.ts", "tests"]
 }

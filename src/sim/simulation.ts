@@ -2,10 +2,11 @@ import RAPIER from '@dimforge/rapier3d-compat'
 import { createDistrict, type District, type Point2, type Prop } from './district'
 import { Driver, type DriveInput, type DrivePose } from './drivers'
 import { Pedestrians, type PedestrianSnapshot } from './pedestrians'
+import { FIXED_DT, initializeRapier } from './physics'
 import { CAR_HEIGHT, NEUTRAL, Vehicle, type VehicleKind } from './vehicle'
 import { SEARCH_RADIUS, SIGHT_RADIUS, Wanted, type PoliceMode } from './wanted'
 
-export const FIXED_DT = 1 / 60
+export { FIXED_DT } from './physics'
 
 export const PROP_HALF_SIZE = {
   hydrant: { x: 0.29, y: 0.45, z: 0.29 },
@@ -53,7 +54,6 @@ interface AutonomousVehicle {
   driver: Driver
 }
 
-let rapierReady: Promise<void> | undefined
 const identity = { x: 0, y: 0, z: 0, w: 1 }
 
 export class Simulation {
@@ -73,7 +73,7 @@ export class Simulation {
   frame = 0
 
   static async create(district = createDistrict()): Promise<Simulation> {
-    await (rapierReady ??= RAPIER.init())
+    await initializeRapier()
     return new Simulation(district)
   }
 

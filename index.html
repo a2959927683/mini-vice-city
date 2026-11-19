@@ -11,6 +11,30 @@
   <body>
     <main class="game" aria-label="Mini Vice City">
       <canvas id="world" aria-label="3D driving view" tabindex="-1"></canvas>
+      <div class="hud demo-hud" id="demo-hud" hidden>
+        <header class="brand">
+          <span class="brand-kicker"><span></span> MINI</span>
+          <h1>VICE<span>CITY</span></h1>
+          <p>DRIVING RANGE</p>
+        </header>
+
+        <section class="speed-panel demo-instruments panel" aria-label="Driving instruments">
+          <div class="panel-heading">
+            <span>SPEED</span>
+            <span class="status" id="demo-drift" data-active="false" role="status">GRIP</span>
+          </div>
+          <div class="speed-reading"><output id="demo-speed" aria-live="off">000</output><span>KM/H</span></div>
+          <div class="panel-heading demo-tilt"><span>CHASSIS TILT</span><output id="demo-tilt" aria-live="off">0.0°</output></div>
+        </section>
+
+        <nav class="controls panel" aria-label="Driving controls">
+          <span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>Drive</span></span>
+          <span><kbd>Space</kbd><span>Drift</span></span>
+          <span><kbd>R</kbd><span>Reset</span></span>
+        </nav>
+
+        <a class="district-link panel" href="?mode=district">Explore district <span aria-hidden="true">→</span></a>
+      </div>
       <div class="hud" id="hud" hidden>
         <header class="brand">
           <span class="brand-kicker"><span></span> MINI</span>
