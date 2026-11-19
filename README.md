@@ -1,6 +1,6 @@
 # Mini Vice City
 
-A browser arcade driving sandbox set in a procedural 4×4 sunset district. Cruise with traffic, drift through intersections, and use buildings and side streets to shake the two patrolling police cars.
+A browser arcade driving sandbox with a procedural sunset driving range and a separate 4×4 city district. The range lets you try the four-ray suspension and handbrake without traffic.
 
 ## Play locally
 
@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-Open the local URL printed by Vite.
+Open the URL printed by Vite. Choose **Explore district** to switch to the city sandbox with traffic, pedestrians and police pursuits.
 
 | Control | Action |
 | --- | --- |
@@ -19,18 +19,14 @@ Open the local URL printed by Vite.
 | S / ↓ | Brake, then reverse |
 | A or D / ← or → | Steer |
 | Space | Handbrake drift |
-| R | Recover the car. A flipped car rights itself on the spot. |
-| Reset button | Restart the district, traffic, props, and Wanted state |
+| R | Reset the range car or recover the district car |
+| Reset button in the district | Restart traffic, props, and Wanted state |
 
-Hitting a police car, ramming traffic, or breaking street props can raise your Wanted level. Break police line of sight, leave the search circle shown on the radar, and stay clear for the search and cooldown countdowns.
+## Architecture and verification
 
-## Architecture
-
-- `src/sim/` owns the fixed 60 Hz Rapier3D world, car dynamics, directed lanes, spatial queries, traffic, pedestrians, and the Wanted and police state machines. It runs headlessly in Node.
-- `src/render/` takes simulation snapshots and renders the procedural Three.js district, vehicles, props, police lights, and spring-damped chase camera.
-- `src/ui/` renders the speedometer, radar, and Wanted HUD. `src/testHook.ts` exposes `window.__GAME_TEST__` for deterministic stepping, real scripted contacts, and evasion checks.
-
-## Verify
+- `src/sim/` owns the headless 60 Hz Rapier3D world, four-ray vehicle physics, and district behavior. `packages/contracts/` contains the immutable road-graph contract and its frozen fixture.
+- `src/render/` renders simulation snapshots with Three.js. The game loop and HUD handle keyboard input, speed, drift, and live chassis tilt.
+- [PLAYBOOK.md](PLAYBOOK.md) records fixture ownership, schema changes, and the replay quarantine process.
 
 ```sh
 npm test
@@ -39,4 +35,4 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-Vitest checks road settling after 300 ticks, headless tick cost, driving response, and the Wanted state machine. Playwright checks browser errors, rendered WebGL pixels, and a scripted police chase through evasion. GitHub Actions runs both suites and the production build. Browser assertions work with software WebGL.
+Vitest validates the road graph and checks the headless vehicle's quaternion tilt, wheel contact recovery, velocity, and tick duration across a 300-tick slalom. Playwright verifies keyboard driving and the district's police-chase flow. GitHub Actions checks pull requests and pushes to `main`. The Pages workflow builds and publishes `dist/` on pushes to `main`.

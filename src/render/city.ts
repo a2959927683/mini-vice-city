@@ -49,7 +49,7 @@ interface CityBatches {
   leaves: Batch
 }
 
-function buildSky(scene: THREE.Scene): void {
+export function buildSky(scene: THREE.Scene): void {
   const sky = new THREE.Mesh(new THREE.SphereGeometry(1, 40, 24), new THREE.ShaderMaterial({
     side: THREE.BackSide,
     depthWrite: false,

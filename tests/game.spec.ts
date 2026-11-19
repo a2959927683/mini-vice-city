@@ -13,7 +13,7 @@ test('renders the district and clears wanted stars after a police collision', as
   const evade = page.getByRole('progressbar', { name: 'Evade progress' })
 
   await test.step('start the game and read rendered WebGL pixels', async () => {
-    await page.goto('/')
+    await page.goto('/?mode=district')
     await expect(view).toBeVisible()
     await expect(page.locator('#loading')).toBeHidden()
     await expect(stars).toHaveAttribute('data-level', '0')

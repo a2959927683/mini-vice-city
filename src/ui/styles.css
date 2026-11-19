@@ -245,3 +245,31 @@ kbd {
   #radar { width: 100px; }
   .controls { bottom: var(--inset); }
 }
+
+.demo-instruments { width: 188px; }
+#demo-drift[data-active="true"] { color: var(--gold); }
+.demo-tilt {
+  border-top: 1px solid #e0c2e63c;
+  padding-top: 7px;
+}
+.demo-tilt output { color: #fff8f4; letter-spacing: 0; }
+
+.district-link {
+  position: absolute;
+  top: var(--inset);
+  right: var(--inset);
+  pointer-events: auto;
+  padding: 8px 10px;
+  text-decoration: none;
+  color: #fff0ec;
+  font-size: 11px;
+  font-weight: 650;
+}
+.district-link span { color: var(--coral); }
+.district-link:hover { background: #3e293e; }
+.district-link:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+
+@media (max-width: 680px) {
+  .demo-hud .controls { bottom: calc(var(--inset) + 102px); }
+  .demo-instruments { width: 144px; }
+}
